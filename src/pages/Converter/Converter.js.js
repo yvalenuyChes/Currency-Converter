@@ -1,8 +1,13 @@
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { NavLink } from 'react-router-dom'
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select'
 import axios from 'axios'
 import Button from '../../components/Button/Button'
-// import Input from "../../components/Input/Input"
+import classes from './Converter.module.scss'
+import { TextField } from '@mui/material';
 
 
 export default function MainPage() {
@@ -21,62 +26,137 @@ export default function MainPage() {
    const secondSelect = useRef(null)
 
 
+   const [firstSelectValue, setFirstSelectValue] = useState('')
+   const [secondSelectValue, setSecondSelectValue] = useState('')
 
-   async function resultHandler() {
-      const firstValue = firstSelect.current.value
-      const secondValue = secondSelect.current.value
-      if (firstValue === 'rub' && secondValue === 'usd') {
-         const dataRub = await axios.get(RUB_URL)
-         setResult((value / dataRub.data.Valute.USD.Value).toFixed(3))
-      } else if (firstValue === 'rub' && secondValue === 'eur') {
-         const dataRub = await axios.get(RUB_URL)
-         setResult((value / dataRub.data.Valute.EUR.Value).toFixed(3))
-      }
-      else if (firstValue === 'usd' && secondValue === 'rub') {
-         const dataRub = await axios.get(RUB_URL)
-         setResult((value * dataRub.data.Valute.USD.Value).toFixed(3))
-      }
-      else if (firstValue === 'eur' && secondValue === 'rub') {
-         const dataRub = await axios.get(RUB_URL)
-         setResult((value * dataRub.data.Valute.EUR.Value).toFixed(3))
-      }
-      else if (firstValue === 'eur' && secondValue === 'usd') {
-         const dataEur = await axios.get(EUR_URL)
-         setResult((value * dataEur.data.rates.USD).toFixed(3))
-      }
-      else if (firstValue === 'usd' && secondValue === 'eur') {
-         const dataEur = await axios.get(EUR_URL)
-         setResult((value / dataEur.data.rates.USD).toFixed(3))
-      }
-      else {
-         setResult(value)
-      }
+   const handleChangeFirstSelector = event => {
+      setFirstSelectValue(event.target.value);
+   }
 
+   const handleChangeSecondSelector = event => {
+      setSecondSelectValue(event.target.value);
    }
 
 
 
+   async function resultHandler() {
+      // const firstValue = firstSelect.current.value
+      // const secondValue = secondSelect.current.value
+      if (firstSelectValue === 'rub' && secondSelectValue === 'usd') {
+         const dataRub = await axios.get(RUB_URL)
+         if (value <= 0) {
+            setResult('Число не может быть меньше или равна нулю')
+         } else {
+            setResult((value / dataRub.data.Valute.USD.Value).toFixed(3))
+         }
+
+      } else if (firstSelectValue === 'rub' && secondSelectValue === 'eur') {
+         const dataRub = await axios.get(RUB_URL)
+         if (value <= 0) {
+            setResult('Число не может быть меньше или равна нулю')
+         } else {
+            setResult((value / dataRub.data.Valute.EUR.Value).toFixed(3))
+         }
+      }
+      else if (firstSelectValue === 'usd' && secondSelectValue === 'rub') {
+         const dataRub = await axios.get(RUB_URL)
+         if (value <= 0) {
+            setResult('Число не может быть меньше или равна нулю')
+         } else {
+            setResult((value * dataRub.data.Valute.USD.Value).toFixed(3))
+         }
+      }
+      else if (firstSelectValue === 'eur' && secondSelectValue === 'rub') {
+         const dataRub = await axios.get(RUB_URL)
+         if (value <= 0) {
+            setResult('Число не может быть меньше или равна нулю')
+         } else {
+            setResult((value * dataRub.data.Valute.EUR.Value).toFixed(3))
+         }
+      }
+      else if (firstSelectValue === 'eur' && secondSelectValue === 'usd') {
+         const dataEur = await axios.get(EUR_URL)
+         if (value <= 0) {
+            setResult('Число не может быть меньше или равна нулю')
+         } else {
+            setResult((value * dataEur.data.rates.USD).toFixed(3))
+         }
+      }
+      else if (firstSelectValue === 'usd' && secondSelectValue === 'eur') {
+         const dataEur = await axios.get(EUR_URL)
+         if (value <= 0) {
+            setResult('Число не может быть меньше или равна нулю')
+         } else {
+            setResult((value / dataEur.data.rates.USD).toFixed(3))
+         }
+      }
+      else {
+         if (value <= 0) {
+            setResult('Число не может быть меньше или равно нулю')
+         } else {
+            setResult(value)
+         }
+      }
+   }
+
+   useEffect(() => {
+      if (navigator.language !== ('ru' || 'ru-RU')) {
+         setFirstSelectValue('eur')
+         setSecondSelectValue('eur')
+      } else {
+         setFirstSelectValue('rub')
+         setSecondSelectValue('rub')
+      }
+   }, [])
+
+
    return (
       <div>
-         <div className='container'>
-            <h2>Конвертер валют</h2>
-            <input value={value} onChange={valueHandler} type='number' />
-            <select ref={firstSelect}>
+         <div className={classes.container}>
+            <h2 className={classes.title}>Конвертер валют</h2>
+            <TextField value={value} onChange={valueHandler} type='number' />
+            <FormControl >
+               <InputLabel id="demo-simple-select-label">Валюта</InputLabel>
+               <Select
+                  value={firstSelectValue}
+                  label="Валюта"
+                  onChange={handleChangeFirstSelector}
+                  ref={firstSelect}
+               >
+                  <MenuItem value='rub'>Rub</MenuItem>
+                  <MenuItem value='usd'>Usd</MenuItem>
+                  <MenuItem value='eur'>Eur</MenuItem>
+               </Select>
+            </FormControl>
+            <FormControl >
+               <InputLabel id="demo-simple-select-label">Валюта</InputLabel>
+               <Select
+                  value={secondSelectValue}
+                  label="Валюта"
+                  onChange={handleChangeSecondSelector}
+                  ref={secondSelect}
+               >
+                  <MenuItem value='rub'>Rub</MenuItem>
+                  <MenuItem value='usd'>Usd</MenuItem>
+                  <MenuItem value='eur'>Eur</MenuItem>
+               </Select>
+            </FormControl>
+            {/* <select ref={firstSelect}>
                <option value='rub'>rub</option>
                <option value='usd'>usd</option>
-               <option>eur</option>
+               <option value='eur'>eur</option>
             </select>
-            <span>in</span>
+            <span>в</span>
             <select ref={secondSelect}>
-               <option>rub</option>
-               <option>usd</option>
-               <option>eur</option>
-            </select>
+               <option value='rub'>rub</option>
+               <option value='usd'>usd</option>
+               <option value='eur'>eur</option>
+            </select> */}
             <Button text='Получить результат' onClick={resultHandler} />
             <div className='result'>
-               <p>Result: {result}</p>
+               <p>Результат: {result}</p>
             </div>
-            <NavLink to='exchange_rates'>To</NavLink>
+            <NavLink to='exchange_rates'>Курс рубля</NavLink>
          </div>
       </div>
    )

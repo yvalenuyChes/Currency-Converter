@@ -1,4 +1,5 @@
 import { Route, Switch } from 'react-router-dom'
+import './style/style.scss'
 
 
 
