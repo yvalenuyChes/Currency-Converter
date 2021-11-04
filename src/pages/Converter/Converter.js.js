@@ -1,13 +1,13 @@
 import { useEffect, useRef, useState } from 'react'
 import { NavLink } from 'react-router-dom'
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
+import InputLabel from '@mui/material/InputLabel'
+import MenuItem from '@mui/material/MenuItem'
+import FormControl from '@mui/material/FormControl'
 import Select from '@mui/material/Select'
+import { TextField } from '@mui/material'
 import axios from 'axios'
 import Button from '../../components/Button/Button'
 import classes from './Converter.module.scss'
-import { TextField } from '@mui/material';
 
 
 export default function MainPage() {
@@ -40,14 +40,12 @@ export default function MainPage() {
 
 
    async function resultHandler() {
-      // const firstValue = firstSelect.current.value
-      // const secondValue = secondSelect.current.value
       if (firstSelectValue === 'rub' && secondSelectValue === 'usd') {
          const dataRub = await axios.get(RUB_URL)
          if (value <= 0) {
             setResult('Число не может быть меньше или равна нулю')
          } else {
-            setResult((value / dataRub.data.Valute.USD.Value).toFixed(3))
+            setResult((value / dataRub.data.Valute.USD.Value).toFixed(3) + ` ${secondSelectValue}`)
          }
 
       } else if (firstSelectValue === 'rub' && secondSelectValue === 'eur') {
@@ -55,7 +53,7 @@ export default function MainPage() {
          if (value <= 0) {
             setResult('Число не может быть меньше или равна нулю')
          } else {
-            setResult((value / dataRub.data.Valute.EUR.Value).toFixed(3))
+            setResult((value / dataRub.data.Valute.EUR.Value).toFixed(3) + ` ${secondSelectValue}`)
          }
       }
       else if (firstSelectValue === 'usd' && secondSelectValue === 'rub') {
@@ -63,7 +61,7 @@ export default function MainPage() {
          if (value <= 0) {
             setResult('Число не может быть меньше или равна нулю')
          } else {
-            setResult((value * dataRub.data.Valute.USD.Value).toFixed(3))
+            setResult((value * dataRub.data.Valute.USD.Value).toFixed(3) + ` ${secondSelectValue}`)
          }
       }
       else if (firstSelectValue === 'eur' && secondSelectValue === 'rub') {
@@ -71,7 +69,7 @@ export default function MainPage() {
          if (value <= 0) {
             setResult('Число не может быть меньше или равна нулю')
          } else {
-            setResult((value * dataRub.data.Valute.EUR.Value).toFixed(3))
+            setResult((value * dataRub.data.Valute.EUR.Value).toFixed(3) + ` ${secondSelectValue}`)
          }
       }
       else if (firstSelectValue === 'eur' && secondSelectValue === 'usd') {
@@ -79,7 +77,7 @@ export default function MainPage() {
          if (value <= 0) {
             setResult('Число не может быть меньше или равна нулю')
          } else {
-            setResult((value * dataEur.data.rates.USD).toFixed(3))
+            setResult((value * dataEur.data.rates.USD).toFixed(3) + ` ${secondSelectValue}`)
          }
       }
       else if (firstSelectValue === 'usd' && secondSelectValue === 'eur') {
@@ -87,14 +85,14 @@ export default function MainPage() {
          if (value <= 0) {
             setResult('Число не может быть меньше или равна нулю')
          } else {
-            setResult((value / dataEur.data.rates.USD).toFixed(3))
+            setResult((value / dataEur.data.rates.USD).toFixed(3) + ` ${secondSelectValue}`)
          }
       }
       else {
          if (value <= 0) {
             setResult('Число не может быть меньше или равно нулю')
          } else {
-            setResult(value)
+            setResult(value + ` ${secondSelectValue}`)
          }
       }
    }
@@ -114,49 +112,46 @@ export default function MainPage() {
       <div>
          <div className={classes.container}>
             <h2 className={classes.title}>Конвертер валют</h2>
-            <TextField value={value} onChange={valueHandler} type='number' />
-            <FormControl >
-               <InputLabel id="demo-simple-select-label">Валюта</InputLabel>
-               <Select
-                  value={firstSelectValue}
-                  label="Валюта"
-                  onChange={handleChangeFirstSelector}
-                  ref={firstSelect}
-               >
-                  <MenuItem value='rub'>Rub</MenuItem>
-                  <MenuItem value='usd'>Usd</MenuItem>
-                  <MenuItem value='eur'>Eur</MenuItem>
-               </Select>
-            </FormControl>
-            <FormControl >
-               <InputLabel id="demo-simple-select-label">Валюта</InputLabel>
-               <Select
-                  value={secondSelectValue}
-                  label="Валюта"
-                  onChange={handleChangeSecondSelector}
-                  ref={secondSelect}
-               >
-                  <MenuItem value='rub'>Rub</MenuItem>
-                  <MenuItem value='usd'>Usd</MenuItem>
-                  <MenuItem value='eur'>Eur</MenuItem>
-               </Select>
-            </FormControl>
-            {/* <select ref={firstSelect}>
-               <option value='rub'>rub</option>
-               <option value='usd'>usd</option>
-               <option value='eur'>eur</option>
-            </select>
-            <span>в</span>
-            <select ref={secondSelect}>
-               <option value='rub'>rub</option>
-               <option value='usd'>usd</option>
-               <option value='eur'>eur</option>
-            </select> */}
-            <Button text='Получить результат' onClick={resultHandler} />
-            <div className='result'>
+            <div className={classes.coverter__input}>
+               <TextField value={value} onChange={valueHandler} type='number' />
+            </div>
+            <div className={classes.converter__selects}>
+               <FormControl >
+                  <InputLabel id="demo-simple-select-label">Валюта</InputLabel>
+                  <Select
+                     value={firstSelectValue}
+                     label="Валюта"
+                     onChange={handleChangeFirstSelector}
+                     ref={firstSelect}
+                  >
+                     <MenuItem value='rub'>Rub</MenuItem>
+                     <MenuItem value='usd'>Usd</MenuItem>
+                     <MenuItem value='eur'>Eur</MenuItem>
+                  </Select>
+               </FormControl>
+               <FormControl >
+                  <InputLabel id="demo-simple-select-label">Валюта</InputLabel>
+                  <Select
+                     value={secondSelectValue}
+                     label="Валюта"
+                     onChange={handleChangeSecondSelector}
+                     ref={secondSelect}
+                  >
+                     <MenuItem value='rub'>Rub</MenuItem>
+                     <MenuItem value='usd'>Usd</MenuItem>
+                     <MenuItem value='eur'>Eur</MenuItem>
+                  </Select>
+               </FormControl>
+            </div>
+            <div className={classes.converter__button}>
+               <Button text='Получить результат' onClick={resultHandler} />
+            </div>
+            <div className={classes.result}>
                <p>Результат: {result}</p>
             </div>
-            <NavLink to='exchange_rates'>Курс рубля</NavLink>
+            <div className={classes.converter__link}>
+               <NavLink to='exchange_rates'>Курс рубля</NavLink>
+            </div>
          </div>
       </div>
    )

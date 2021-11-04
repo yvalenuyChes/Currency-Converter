@@ -4,3 +4,57 @@
 .container{
    @include container;
 }
+
+.title{
+   padding-top: 50px;
+   text-align: center;
+   font-size: 35px;
+   font-weight: 600;
+}
+
+.coverter__input{
+   padding: 40px 0px;
+   display: flex;
+   width: 100%;
+   justify-content: center;
+}
+
+.converter__selects{
+   width: 100%;
+   display: flex;
+   justify-content: space-around;
+}
+
+.converter__button{
+   padding-top: 50px;
+   display: flex;
+   width: 100%;
+   justify-content: center;
+}
+
+.result{
+   padding: 40px 0 0 0;
+   width: 100%;
+   text-align: center;
+   font-size: 26px;
+}
+
+.converter__link{
+   text-align: center;
+   padding: 40px 0 0 0;
+
+   a{
+      display: inline-block;
+      width: 150px;
+      border-radius: 5px;
+     color: white;
+      background-color: DeepSkyBlue;
+      line-height: 40px;
+      font-size: 18px;
+      transition: .3s all ease;
+
+      &:hover{
+         background-color: DodgerBlue;
+      }
+   }
+}
