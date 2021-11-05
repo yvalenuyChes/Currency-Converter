@@ -12,7 +12,7 @@ export default function ExchangeRates() {
 
    const RUB_URL = 'https://www.cbr-xml-daily.ru/daily_json.js'
    const EUR_URL = 'http://api.exchangeratesapi.io/v1/latest?access_key=f2f2c855dce5a8fc254f3bf2628abdcf'
-   const DATA_URL = (navigator.language === ('ru-RU' || 'ru') ? RUB_URL : EUR_URL)
+   const DATA_URL = (navigator.language === ('ru' || 'ru-RU') ? RUB_URL : EUR_URL)
 
    const [rubData, setRubData] = useState([])
    const [eurData, setEurData] = useState([])
@@ -35,7 +35,7 @@ export default function ExchangeRates() {
       }
    }
 
-   if (navigator.language === ('ru-RU' || 'ru')) {
+   if (navigator.language === ('ru' || 'ru-RU')) {
       getValutesRub()
    } else {
       getValutesUsd()
@@ -43,14 +43,14 @@ export default function ExchangeRates() {
 
    return (
       <div className={classes.container}>
-         <h1 className={classes.title}>{navigator.language === ('ru-RU' || 'ru') ? 'Курс рубля' : 'Euro rate'}</h1>
+         <h1 className={classes.title}>{navigator.language === ('ru' || 'ru-RU') ? 'Курс рубля' : 'Euro rate'}</h1>
          {
-            navigator.language === ('ru-RU' || 'ru')
+            navigator.language === ('ru' || 'ru-RU')
                ?
                <ul className={classes.rates__list}>
                   {rubData.map(item =>
                      <li key={item[0]} className={classes.rates__list__item}>
-                        Валюта: <span>{item[0]}</span>, рублей за валюту:<span>{item[1]}</span>
+                        Валюта: <span>{item[0]}</span>, рублей за валюту:<span>{item[1]}</span> руб
                      </li>
                   )}
                </ul>
@@ -58,19 +58,19 @@ export default function ExchangeRates() {
                <ul className={classes.rates__list}>
                   {eurData.map(item =>
                      <li key={item[0]} className={classes.rates__list__item}>
-                        Valute: <span>{item[0]}</span>, Rate:<span>{item[1]}</span>
+                        Valute: <span>{item[0]}</span>, Rate:<span>{item[1].toFixed(3)}</span> for 1 euro
                      </li>
                   )}
                </ul>
          }
          <div className={classes.rates__button}>
-            {navigator.language === ('ru-RU' || 'ru')
+            {navigator.language === ('ru' || 'ru-RU')
                ? <Button onClick={() => setRubData(rubValues)} text='Получить данные' />
                : <Button onClick={() => setEurData(eurValues)} text='Get data' />
             }
          </div>
          <div className={classes.rates__link}>
-            <NavLink to='/'>{navigator.language === ('ru-RU' || 'ru') ? 'Конвертер' : 'Converter'}</NavLink>
+            <NavLink to='/'>{navigator.language === ('ru' || 'ru-RU') ? 'Конвертер' : 'Converter'}</NavLink>
          </div>
       </div>
    )

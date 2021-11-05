@@ -3,3 +3,32 @@
    padding: 0 20px;
    margin: 0 auto;
 }
+
+
+@mixin title{
+   padding-top: 50px;
+   text-align: center;
+   font-size: 35px;
+   font-weight: 600;
+}
+
+
+@mixin linkButton{
+   text-align: center;
+   padding: 40px 0 0 0;
+
+   a{
+      display: inline-block;
+      width: 150px;
+      border-radius: 5px;
+     color: white;
+      background-color: DeepSkyBlue;
+      line-height: 40px;
+      font-size: 18px;
+      transition: .3s all ease;
+
+      &:hover{
+         background-color: DodgerBlue;
+      }
+   }
+}
