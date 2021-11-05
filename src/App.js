@@ -1,11 +1,7 @@
 import { Route, Switch } from 'react-router-dom'
-import './style/style.scss'
-
-
-
 import Converter from "./pages/Converter/Converter.js"
-import ExchangeRate from './pages/ExchangeRates/ExchangeRates.js';
-
+import ExchangeRate from './pages/ExchangeRates/ExchangeRates.js'
+import './style/style.scss'
 
 function App() {
   return (
@@ -16,4 +12,4 @@ function App() {
   )
 }
 
-export default App;
+export default App

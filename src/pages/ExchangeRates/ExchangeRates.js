@@ -8,8 +8,6 @@ import classes from './ExchangeRates.module.scss'
 
 export default function ExchangeRates() {
 
-   console.log(navigator.language)
-
    const RUB_URL = 'https://www.cbr-xml-daily.ru/daily_json.js'
    const EUR_URL = 'http://api.exchangeratesapi.io/v1/latest?access_key=f2f2c855dce5a8fc254f3bf2628abdcf'
    const DATA_URL = (navigator.language === ('ru' || 'ru-RU') ? RUB_URL : EUR_URL)

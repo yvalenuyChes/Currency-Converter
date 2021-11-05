@@ -41,7 +41,6 @@ export default function MainPage() {
       if (firstSelectValue === 'rub' && secondSelectValue === 'usd') {
          const dataRub = await axios.get(RUB_URL)
          if (value <= 0) {
-            //setResult('Число не может быть меньше или равна нулю')
             setResult(navigator.language === ('ru' || 'ru-RU') ? 'Число не может быть меньше или равна нулю' : 'Value should be more then 0')
          } else {
             setResult((value / dataRub.data.Valute.USD.Value).toFixed(3) + ` ${secondSelectValue}`)
@@ -50,7 +49,6 @@ export default function MainPage() {
       } else if (firstSelectValue === 'rub' && secondSelectValue === 'eur') {
          const dataRub = await axios.get(RUB_URL)
          if (value <= 0) {
-            // setResult('Число не может быть меньше или равна нулю')
             setResult(navigator.language === ('ru' || 'ru-RU') ? 'Число не может быть меньше или равна нулю' : 'Value should be more then 0')
          } else {
             setResult((value / dataRub.data.Valute.EUR.Value).toFixed(3) + ` ${secondSelectValue}`)
@@ -59,7 +57,6 @@ export default function MainPage() {
       else if (firstSelectValue === 'usd' && secondSelectValue === 'rub') {
          const dataRub = await axios.get(RUB_URL)
          if (value <= 0) {
-            // setResult('Число не может быть меньше или равна нулю')
             setResult(navigator.language === ('ru' || 'ru-RU') ? 'Число не может быть меньше или равна нулю' : 'Value should be more then 0')
          } else {
             setResult((value * dataRub.data.Valute.USD.Value).toFixed(3) + ` ${secondSelectValue}`)
@@ -68,7 +65,6 @@ export default function MainPage() {
       else if (firstSelectValue === 'eur' && secondSelectValue === 'rub') {
          const dataRub = await axios.get(RUB_URL)
          if (value <= 0) {
-            // setResult('Число не может быть меньше или равна нулю')
             setResult(navigator.language === ('ru' || 'ru-RU') ? 'Число не может быть меньше или равна нулю' : 'Value should be more then 0')
          } else {
             setResult((value * dataRub.data.Valute.EUR.Value).toFixed(3) + ` ${secondSelectValue}`)
@@ -77,7 +73,6 @@ export default function MainPage() {
       else if (firstSelectValue === 'eur' && secondSelectValue === 'usd') {
          const dataEur = await axios.get(EUR_URL)
          if (value <= 0) {
-            // setResult('Число не может быть меньше или равна нулю')
             setResult(navigator.language === ('ru' || 'ru-RU') ? 'Число не может быть меньше или равна нулю' : 'Value should be more then 0')
          } else {
             setResult((value * dataEur.data.rates.USD).toFixed(3) + ` ${secondSelectValue}`)
@@ -86,7 +81,6 @@ export default function MainPage() {
       else if (firstSelectValue === 'usd' && secondSelectValue === 'eur') {
          const dataEur = await axios.get(EUR_URL)
          if (value <= 0) {
-            // setResult('Число не может быть меньше или равна нулю')
             setResult(navigator.language === ('ru' || 'ru-RU') ? 'Число не может быть меньше или равна нулю' : 'Value should be more then 0')
          } else {
             setResult((value / dataEur.data.rates.USD).toFixed(3) + ` ${secondSelectValue}`)
@@ -94,7 +88,6 @@ export default function MainPage() {
       }
       else {
          if (value <= 0) {
-            // setResult('Число не может быть меньше или равно нулю')
             setResult(navigator.language === ('ru' || 'ru-RU') ? 'Число не может быть меньше или равна нулю' : 'Value should be more then 0')
          } else {
             setResult(value + ` ${secondSelectValue}`)
